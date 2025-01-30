@@ -30,7 +30,14 @@ float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDi
         currentDepth = tex2Dlod(heightMap,float4(currentTexCoords,0,0)).r;
         currentLayerDepth += layerDepth;
     }
-    return currentTexCoords;
+    float2 prevTexCoords = currentTexCoords + deltaTexCoords;
+    float afterDepth = currentDepth - currentLayerDepth;
+    float beforeDepth = tex2Dlod(heightMap, float4(prevTexCoords,0,0)).r - currentLayerDepth + layerDepth;
+
+    float weight = afterDepth / (afterDepth - beforeDepth);
+    float2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
+    
+    return finalTexCoords;
 }
 
 #endif
