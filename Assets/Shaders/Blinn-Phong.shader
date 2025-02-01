@@ -70,15 +70,15 @@ Shader "Lighting/Blinn-Phong"
                 half4 color: COLOR0;
             };
 
-            v2f vert(appdata vx)
+            v2f vert(appdata v)
             {
                 v2f o;
-                o.pos = UnityObjectToClipPos(vx.vertex);
-                o.worldPos = mul(unity_ObjectToWorld, vx.vertex).xyz;
+                o.pos = UnityObjectToClipPos(v.vertex);
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 
-                o.uv = vx.uv * _MainTex_ST.xy + _MainTex_ST.zw;
-                half3 worldNormal = UnityObjectToWorldNormal(vx.normal);
-                half3 worldTangent = mul((float3x3)unity_ObjectToWorld, vx.tangent);
+                o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
+                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
+                half3 worldTangent = mul((float3x3)unity_ObjectToWorld, v.tangent);
 
                 half3 bitangent = cross(worldNormal, worldTangent);
                 half3 worldBitangent = mul((float3x3)unity_ObjectToWorld, bitangent);
@@ -91,15 +91,19 @@ Shader "Lighting/Blinn-Phong"
             fixed4 frag(v2f i) : SV_Target
             {
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
-                float2 texCoords = SteepParallaxMapping(_Height,i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
-                
+                half3 l = normalize(_WorldSpaceLightPos0.xyz);
+
+                float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
+                                                        _HeightScale);
+                float shadow = Shadow(_Height, texCoords, l,_NumberOfLayers,_HeightScale);
+
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
                 normalMap.xy *= _NormalStrength;
+                normalMap.z = sqrt(1.0 - saturate(dot(normalMap.xy, normalMap.xy))); // Re-normalize normal
 
                 half3 n = normalize(mul(transpose(i.TBN), normalMap));
-                half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 half3 h = normalize(l + v);
 
                 float Ia = _k.x;
@@ -112,11 +116,9 @@ Shader "Lighting/Blinn-Phong"
                 float3 diffuse = Id * c * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 finalColor = ambient + diffuse + specular;
+                float3 finalColor = ambient + (diffuse + specular) * shadow;
 
-                i.color = fixed4(finalColor, 1.0);
-
-                return i.color;
+                return fixed4(finalColor, 1.0);
             }
             ENDCG
 

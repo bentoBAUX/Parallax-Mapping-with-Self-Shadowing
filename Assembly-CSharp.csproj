@@ -42,12 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
      <Folder Include="Assets" />
+     <Folder Include="Assets\Textures\Blue Plate" />
      <None Include="Assets\Shaders\Blinn-Phong.shader" />
+     <Folder Include="Assets\Textures\Roof" />
+     <Folder Include="Assets\Textures\Pebbles" />
      <None Include="Assets\Shaders\Parallax-Mapping.hlsl" />
+     <Folder Include="Assets\Textures\Wooden Toy" />
      <Folder Include="Assets\Scenes" />
      <Folder Include="Assets\Shaders" />
+     <Folder Include="Assets\Materials\Cook Torrance" />
+     <None Include="Assets\Shaders\Cook-Torrance.shader" />
+     <Folder Include="Assets\Textures\Brick" />
      <Folder Include="Assets\Materials" />
+     <Folder Include="Assets\Scenes\Parallax Mapping_Profiles" />
      <Folder Include="Assets\Textures" />
+     <Folder Include="Assets\Materials\Blinn Phong" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.13f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
