@@ -48,10 +48,11 @@ Shader "Lighting/Cook-Torrance"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
+            #pragma multi_compile_fwdbase
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
+            #include "AutoLight.cginc"  // Includes light attenuation calculations
 
             struct appdata
             {
@@ -67,6 +68,7 @@ Shader "Lighting/Cook-Torrance"
                 float3 worldPos: TEXCOORD0;
                 half2 uv: TEXCOORD1;
                 half3x3 TBN : TEXCOORD2;
+                LIGHTING_COORDS(5, 6)
             };
 
             uniform fixed4 _DiffuseColour;
@@ -103,6 +105,8 @@ Shader "Lighting/Cook-Torrance"
 
                 o.TBN = float3x3(worldTangent, worldBitangent, worldNormal);
 
+                UNITY_TRANSFER_LIGHTING(o, v.vertex);
+
                 return o;
             }
 
@@ -119,15 +123,14 @@ Shader "Lighting/Cook-Torrance"
             float4 frag(v2f i) : SV_Target
             {
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
-                half3 l = normalize(_WorldSpaceLightPos0.xyz);
 
+                half3 l = normalize(_WorldSpaceLightPos0.xyz);
                 // Convert into tangent space
                 half3 l_TS = normalize(mul(i.TBN, l));
 
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                                         _HeightScale);
                 float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
-                //float parallaxShadows = 1;
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
                 normalMap.xy *= _NormalStrength;
@@ -194,10 +197,12 @@ Shader "Lighting/Cook-Torrance"
 
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
-                fixed3 ambient = 0.07 * (UNITY_LIGHTMODEL_AMBIENT + _LightColor0 + skyboxColor);
+                float3 ambientSH = ShadeSH9(float4(n, 1));
+                fixed3 ambient =  c * ambientSH;
 
-                return float4(ambient + lerp(L, specular, _Metallic) * parallaxShadows, 1.0);
+                float3 result = saturate((L, specular, _Metallic));
+                return float4(ambient + result * parallaxShadows, 1.0);
+                // lerp(L, specular, _Metallic) causes problems
             }
             ENDHLSL
         }

@@ -35,6 +35,7 @@ Shader "Lighting/Blinn-Phong"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_fwdbase
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
@@ -114,9 +115,9 @@ Shader "Lighting/Blinn-Phong"
                 float Id = _k.y * saturate(dot(n, l));
                 float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent);
 
-                float3 skyboxColor = UNITY_SAMPLE_TEXCUBE(unity_SpecCube0, float3(0,1,0)).rgb;
 
-                float3 ambient = Ia * c * (UNITY_LIGHTMODEL_AMBIENT + skyboxColor * 0.2);
+                float3 ambientSH = ShadeSH9(float4(n, 1));
+                float3 ambient = Ia * c * ambientSH;
                 float3 diffuse = Id * c * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
@@ -225,7 +226,7 @@ Shader "Lighting/Blinn-Phong"
 
                 half3 l_TS = normalize(mul(i.TBN, l));
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
-                                        _HeightScale);
+                                                        _HeightScale);
                 float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
 
                 // Blinn Phong
