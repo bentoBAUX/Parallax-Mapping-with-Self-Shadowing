@@ -160,7 +160,6 @@ Shader "Lighting/Cook-Torrance"
                 float sigmaSqr = _sigma * _sigma * roughnessValue;
 
                 // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
-
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
                 float C2 = cosPhi >= 0
                                ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) *
@@ -179,7 +178,6 @@ Shader "Lighting/Cook-Torrance"
                 float3 L = saturate(L1 + L2);
 
                 // Cook-Torrance: https://en.wikipedia.org/wiki/Specular_highlight#Cook–Torrance_model
-
                 float NdotH = saturate(dot(n, h));
                 float a = acos(NdotH);
                 float m = clamp(sigmaSqr, 0.01, 1);
@@ -198,11 +196,10 @@ Shader "Lighting/Cook-Torrance"
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v)) * _LightColor0;
 
                 float3 ambientSH = ShadeSH9(float4(n, 1));
-                fixed3 ambient =  c * ambientSH;
+                fixed3 ambient = c * ambientSH;
 
-                float3 result = saturate((L, specular, _Metallic));
+                float3 result = saturate(lerp(L, specular, _Metallic));
                 return float4(ambient + result * parallaxShadows, 1.0);
-                // lerp(L, specular, _Metallic) causes problems
             }
             ENDHLSL
         }
@@ -311,6 +308,7 @@ Shader "Lighting/Cook-Torrance"
                     // Point light: calculate attenuation based on distance
                     l = normalize(_WorldSpaceLightPos0.xyz - i.worldPos);
                     atten = LIGHT_ATTENUATION(i);
+
                 }
 
                 // Convert into tangent space
@@ -376,7 +374,8 @@ Shader "Lighting/Cook-Torrance"
 
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v));
 
-                return float4(lerp(L, specular, _Metallic) * parallaxShadows * atten, 1.0);
+                float3 result = saturate(lerp(L, specular, _Metallic)) * parallaxShadows * atten;
+                return float4(result , 1.0);
             }
             ENDHLSL
         }
