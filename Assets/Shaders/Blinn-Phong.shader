@@ -99,7 +99,7 @@ Shader "Lighting/Blinn-Phong"
                 half3 l_TS = normalize(mul(i.TBN, l));
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                                         _HeightScale);
-                float parallaxShadows = HardShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
@@ -226,7 +226,7 @@ Shader "Lighting/Blinn-Phong"
                 half3 l_TS = normalize(mul(i.TBN, l));
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                         _HeightScale);
-                float parallaxShadows = HardShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;

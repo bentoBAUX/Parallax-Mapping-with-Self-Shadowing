@@ -126,7 +126,7 @@ Shader "Lighting/Cook-Torrance"
 
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                                         _HeightScale);
-                float parallaxShadows = HardShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
                 //float parallaxShadows = 1;
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
@@ -313,7 +313,7 @@ Shader "Lighting/Cook-Torrance"
 
                 float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                                         _HeightScale);
-                float parallaxShadows = HardShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
                 // float parallaxShadows = 1;
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
