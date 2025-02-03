@@ -47,19 +47,18 @@
   <ItemGroup>
      <Compile Include="Assets\Script\Point Light.cs" />
      <Folder Include="Assets" />
-     <Folder Include="Assets\Textures\Blue Plate" />
      <None Include="Assets\Shaders\Blinn-Phong.shader" />
-     <Folder Include="Assets\Textures\Roof" />
-     <Folder Include="Assets\Textures\Pebbles" />
      <None Include="Assets\Shaders\Parallax-Mapping.hlsl" />
-     <Folder Include="Assets\Textures\Wooden Toy" />
+     <Folder Include="Assets\Textures\grey_roof_01_4k.blend" />
      <Folder Include="Assets\Scenes" />
      <Folder Include="Assets\Shaders" />
      <Folder Include="Assets\Materials\Cook Torrance" />
      <None Include="Assets\Shaders\Cook-Torrance.shader" />
      <Folder Include="Assets\Materials\Unity Default" />
-     <Folder Include="Assets\Textures\Brick" />
+     <Folder Include="Assets\Textures\worn_brick_floor_4k.blend" />
      <Folder Include="Assets\Materials" />
+     <Folder Include="Assets\Textures\lichen_rock_4k.blend" />
+     <Folder Include="Assets\Textures\metal_plate_02_4k.blend" />
      <Folder Include="Assets\Scenes\Parallax Mapping_Profiles" />
      <Folder Include="Assets\Textures" />
      <Folder Include="Assets\Script" />
@@ -688,6 +687,9 @@
      <Reference Include="Unity.Timeline">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Recorder.Editor">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.Recorder.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
      </Reference>
@@ -730,14 +732,17 @@
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.Recorder.Base">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.Recorder.Base.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.TextMeshPro">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.TextMeshPro.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Core">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.VisualScripting.Core.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.TextMeshPro.Editor">
-     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
+     <Reference Include="Unity.Recorder">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.Recorder.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
@@ -747,6 +752,9 @@
      </Reference>
      <Reference Include="Unity.Rider.Editor">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.Rider.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.TextMeshPro.Editor">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>

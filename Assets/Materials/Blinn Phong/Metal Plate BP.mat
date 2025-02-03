@@ -44,11 +44,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Height:
-        m_Texture: {fileID: 2800000, guid: 30f9349c10f1d394296fa4ad218cb655, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9ce1576231283234d98049e466b5abdb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ac42c0e87e5ccf94cb9178ad072dcf32, type: 3}
+        m_Texture: {fileID: 2800000, guid: 091fd8a90f9dfe4429e053b54f277ec1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -56,7 +56,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal:
-        m_Texture: {fileID: 2800000, guid: 43409e73622c9e146ab3883ca50224e2, type: 3}
+        m_Texture: {fileID: 2800000, guid: f1a70e28e252fe74ab99833e5a6a9d70, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness:
-        m_Texture: {fileID: 2800000, guid: 2ea7b1c78153b0445888a7ba4bd799c3, type: 3}
+        m_Texture: {fileID: 2800000, guid: cae6f57807a96634da7acc34bc7b23af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints:
@@ -81,10 +81,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HeightScale: 0.07
-    - _Metallic: 0.27
+    - _HeightScale: 0.02
+    - _Metallic: 0.3
     - _Mode: 0
-    - _NormalStrength: 1.3
+    - _NormalStrength: 2
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RefractiveIndex: 2.99
@@ -97,7 +97,7 @@ Material:
     - _sigma: 0.35
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DiffuseColour: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseColour: {r: 0.645283, g: 0.645283, b: 0.645283, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _k: {r: 1, g: 0.5, b: 0.8, a: 1}
+    - _k: {r: 1, g: 1, b: 0.65, a: 1}
   m_BuildTextureStacks: []
