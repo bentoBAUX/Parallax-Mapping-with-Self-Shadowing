@@ -15,24 +15,43 @@ It compares three shading models: the Unity Standard Shader, Blinn-Phong (Empiri
 
 This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
 
+---
+## Parallax Mapping
 
-## Side-by-Side Shader Comparison  
+### How It Works  
 
-| **Unity Standard Shader** | **Blinn-Phong (Empirical)** | **Cook-Torrance + Oren-Nayar (Physically Based)** |
-|--------------------------|--------------------------|--------------------------------------|
-| ![Unity Standard](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20Unity.jpg) | ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20BP.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20CT.jpg) |
-
-
-## How It Works  
-
-### **What is Parallax Occlusion Mapping?**  
+#### **What is Parallax Occlusion Mapping?**  
 Parallax Occlusion Mapping (POM) is a technique that simulates depth on flat surfaces using a **height map**. Unlike normal mapping, which only affects lighting, **POM actually shifts texture coordinates** based on the viewing angle, creating a **3D illusion**.  
 
-### **How Self-Shadowing Works**  
+#### **How Self-Shadowing Works**  
 Self-shadowing allows surfaces to **cast shadows onto themselves**, making depth features more realistic. This shader calculates occlusion by **tracing the light direction through the height map**.  
 
 
+### Side-by-Side Shader Comparison  
+
+| **Blinn-Phong (Empirical)** | **Cook-Torrance + Oren-Nayar (Physically Based)** |
+|--------------------------|--------------------------------------|
+| ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20BP%20-%20Simple.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20CT%20-%20Simple.jpg) |
+
+
+
+## Parallax Occlusion Mapping
+
+### Side-by-Side Shader Comparison  
+
+|**Blinn-Phong (Empirical)** | **Cook-Torrance + Oren-Nayar (Physically Based)** |
+|--------------------------|--------------------------------------|
+| ![Unity Standard](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20Unity.jpg) | ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20BP.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20CT.jpg) |
+
+### How It Works  
+
+#### **What is Parallax Occlusion Mapping?**  
+Parallax Occlusion Mapping (POM) is a technique that simulates depth on flat surfaces using a **height map**. Unlike normal mapping, which only affects lighting, **POM actually shifts texture coordinates** based on the viewing angle, creating a **3D illusion**.  
+
+#### **How Self-Shadowing Works**  
+Self-shadowing allows surfaces to **cast shadows onto themselves**, making depth features more realistic. This shader calculates occlusion by **tracing the light direction through the height map**.  
 ## Customization  
+
 
 ### Shader Parameters  
 | **Parameter** | **Description** |
