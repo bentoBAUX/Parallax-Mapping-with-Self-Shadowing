@@ -58,7 +58,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales scelerisque
 
 |**Blinn-Phong (Empirical)** | **Cook-Torrance + Oren-Nayar (Physically Based)** |
 |--------------------------|--------------------------------------|
-| ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Final/Brick%20BP.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Final/Brick%20CT.jpg) |
+| ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Self%20Shadow/Brick%20BP%20-%20Shadow%20UP.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Self%20Shadow/Brick%20CT%20-%20Shadow%20UP.jpg) |
+| ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Self%20Shadow/Brick%20BP%20-%20Shadow%20SIDE.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Self%20Shadow/Brick%20CT%20-%20Shadow%20SIDE.jpg) |
+
 
 ---
 
