@@ -4,9 +4,9 @@
   <a href="https://youtu.be/GjTtb7B6h1A">
     <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
   </a>
+  <br>
+  <em>Click to watch the showcase on YouTube</em>
 </p>
-
-_Click to watch the showcase on YouTube_
 
 ## Overview
 This project demonstrates **Physically Based Parallax Occlusion Mapping (POM)** with self-shadowing in Unity's Built-In Render Pipeline using HLSL.
@@ -14,14 +14,6 @@ This project demonstrates **Physically Based Parallax Occlusion Mapping (POM)** 
 It compares three shading models: the Unity Standard Shader, Blinn-Phong (Empirical), and Cook-Torrance with Oren-Nayar (Physically Based). Each of these models also includes a simpler counterpart utilizing basic parallax mapping, highlighting the differences in depth perception and realism.
 
 This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
-
-## Features  
-
-- **Parallax Occlusion Mapping (POM)** – Adds realistic depth without extra geometry.  
-- **Self-Shadowing** – Objects cast accurate depth shadows inside the texture.  
-- **Physically Based Lighting** – Uses Cook-Torrance (specular) + Oren-Nayar (diffuse).  
-- **Shader Comparison** – Unity Standard vs. Blinn-Phong vs. Physically Based Cook-Torrance.  
-- **Optimized for Unity** – Works in the **Built-in Render Pipeline**.  
 
 
 ## Side-by-Side Shader Comparison  
@@ -57,12 +49,6 @@ Self-shadowing allows surfaces to **cast shadows onto themselves**, making depth
 - **Use lower `NumberOfLayers` for better performance.**  
 - **Steep angles require more samples; consider LOD adjustments.**  
 - **Avoid overusing self-shadowing on high-performance constraints.**  
-
-
-## Video Showcase  
-
-**Watch the full demo here:** [YouTube Link](https://your-video-link)  
-
 
 ## Future Improvements  
 
