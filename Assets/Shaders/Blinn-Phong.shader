@@ -98,7 +98,7 @@ Shader "Lighting/Blinn-Phong"
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
 
                 half3 l_TS = normalize(mul(i.TBN, l));
-                float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
+                float2 texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
                                                         _HeightScale);
                 float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
 
