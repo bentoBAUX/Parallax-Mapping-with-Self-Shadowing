@@ -1,5 +1,18 @@
 # Physically Based Parallax Occlusion Mapping with Self-Shadowing in Unity  
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Parallax Mapping](#parallax-mapping)
+- [Parallax Occlusion Mapping](#parallax-occlusion-mapping)
+- [Self Shadowing](#self-shadowing)
+- [Shader Parameters](#shader-parameters)
+- [Performance Considerations](#performance-considerations)
+- [Future Improvements](#future-improvements)
+- [Credits](#credits)
+- [License](#license)
+
+---
 <p align="center">
   <a href="https://youtu.be/GjTtb7B6h1A">
     <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
@@ -7,7 +20,7 @@
   <br>
   <em>Click to watch the showcase on YouTube</em>
 </p>
-
+  
 ## Overview
 This project demonstrates **Physically Based Parallax Occlusion Mapping (POM)** with self-shadowing in Unity's Built-In Render Pipeline using HLSL.
 
@@ -16,6 +29,7 @@ It compares three shading models: the Unity Standard Shader, Blinn-Phong (Empiri
 This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
 
 ---
+
 ## Parallax Mapping
 
 ### How It Works  
