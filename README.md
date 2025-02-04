@@ -2,8 +2,8 @@
 
 > **A high-quality Parallax Occlusion Mapping (POM) shader for Unity, featuring self-shadowing and a physically based shading model using Cook-Torrance for specular reflection and Oren-Nayar for diffuse lighting.**  
 
-![Demo GIF](assets/demo.gif)  
-*\ud83d\udccc Example of the shader in action*  
+![Demo GIF](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif)  
+*Example of the shader in action*  
 
 ---
 
