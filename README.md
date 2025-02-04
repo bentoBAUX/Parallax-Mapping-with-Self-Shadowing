@@ -1,8 +1,19 @@
 # Physically Based Parallax Occlusion Mapping with Self-Shadowing in Unity  
 
+This project demonstrates **Physically Based Parallax Occlusion Mapping (POM)** with self-shadowing in Unity's Built-In Render Pipeline using HLSL. It compares three shading models: the Unity Standard Shader, Blinn-Phong (Empirical), and Cook-Torrance with Oren-Nayar (Physically Based). Each of these models also includes a simpler counterpart utilizing basic parallax mapping, highlighting the differences in depth perception and realism.
+
+This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
+
+<p align="center">
+  <a href="https://youtu.be/GjTtb7B6h1A">
+    <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
+  </a>
+  <br>
+  <em>Click to watch the showcase on YouTube</em>
+</p>
+
 ## Table of Contents
 
-- [Overview](#overview)
 - [Parallax Mapping](#parallax-mapping)
 - [Parallax Occlusion Mapping](#parallax-occlusion-mapping)
 - [Self Shadowing](#self-shadowing)
@@ -11,24 +22,6 @@
 - [Future Improvements](#future-improvements)
 - [Credits](#credits)
 - [License](#license)
-
----
-<p align="center">
-  <a href="https://youtu.be/GjTtb7B6h1A">
-    <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
-  </a>
-  <br>
-  <em>Click to watch the showcase on YouTube</em>
-</p>
-  
-## Overview
-This project demonstrates **Physically Based Parallax Occlusion Mapping (POM)** with self-shadowing in Unity's Built-In Render Pipeline using HLSL.
-
-It compares three shading models: the Unity Standard Shader, Blinn-Phong (Empirical), and Cook-Torrance with Oren-Nayar (Physically Based). Each of these models also includes a simpler counterpart utilizing basic parallax mapping, highlighting the differences in depth perception and realism.
-
-This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
-
----
 
 ## Parallax Mapping
 
