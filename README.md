@@ -20,7 +20,7 @@
 
 | **Unity Standard Shader** | **Blinn-Phong (Empirical)** | **Cook-Torrance + Oren-Nayar (Physically Based)** |
 |--------------------------|--------------------------|--------------------------------------|
-| ![Unity Standard](assets/unity_standard.png) | ![Blinn-Phong](assets/blinn_phong.png) | ![CTON](assets/cook_nayar.png) |
+| ![Unity Standard](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20Unity.jpg) | ![Blinn-Phong](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20BP.jpg) | ![CTON](https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/Comparison/Brick%20CT.jpg) |
 
 
 ## How It Works  
