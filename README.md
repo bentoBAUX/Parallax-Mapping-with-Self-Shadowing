@@ -121,9 +121,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales scelerisque
 
 ## Credits  
 
-- **Developed by:** [Your Name](https://github.com/yourusername)  
-- Inspired by **Unity’s built-in shaders** & **academic research on PBR shading models**.  
-
+- Joey de Vries for his insightful tutorial on [LearnOpenGL](https://learnopengl.com/Advanced-Lighting/Parallax-Mapping), which provided a strong foundation for this project’s development.
+- Rabbid76 on [StackOverflow](https://stackoverflow.com/questions/55089830/adding-shadows-to-parallax-occlusion-map) for the tutorial on self shadowing for parallax mapping.
 
 ## License  
 
