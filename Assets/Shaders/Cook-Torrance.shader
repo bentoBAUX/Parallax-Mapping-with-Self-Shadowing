@@ -18,6 +18,8 @@ Shader "Lighting/Cook-Torrance"
         _Height("Height Map", 2D) = "height"{}
         _NumberOfLayers("Number of Layers", Integer) = 100
         _HeightScale("Height scale", Range(0,1)) = 0.1
+        [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
+        [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
 
         [Header(Cook Torrance)][Space(10)]
         _Metallic ("Metallic", Range(0, 1)) = 0.5
@@ -49,6 +51,8 @@ Shader "Lighting/Cook-Torrance"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
+            #pragma shader_feature USESTEEP
+            #pragma shader_feature USESHADOWS
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
@@ -128,9 +132,21 @@ Shader "Lighting/Cook-Torrance"
                 // Convert into tangent space
                 half3 l_TS = normalize(mul(i.TBN, l));
 
-                float2 texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
-                                                        _HeightScale);
-                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float2 texCoords;
+                float parallaxShadows;
+
+                #ifdef USESTEEP
+                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #else
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #endif
+
+                #ifdef USESHADOWS
+                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                #else
+                parallaxShadows = 1;
+                #endif
+
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
                 normalMap.xy *= _NormalStrength;
@@ -220,7 +236,9 @@ Shader "Lighting/Cook-Torrance"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdadd_fullshadows // Enable full shadows and attenuation support for additional lights
-
+            #pragma shader_feature USESTEEP
+            #pragma shader_feature USESHADOWS
+            
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
             #include "AutoLight.cginc"  // Includes light attenuation calculations
@@ -314,10 +332,21 @@ Shader "Lighting/Cook-Torrance"
                 // Convert into tangent space
                 half3 l_TS = normalize(mul(i.TBN, l));
 
-                float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
-                                                        _HeightScale);
-                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
-                // float parallaxShadows = 1;
+                float2 texCoords;
+                float parallaxShadows;
+
+                #ifdef USESTEEP
+                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #else
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #endif
+
+                #ifdef USESHADOWS
+                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                #else
+                parallaxShadows = 1;
+                #endif
+
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
                 normalMap.xy *= _NormalStrength;

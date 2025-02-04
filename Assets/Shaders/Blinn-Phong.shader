@@ -14,6 +14,8 @@ Shader "Lighting/Blinn-Phong"
         _Height("Height Map", 2D) = "height"{}
         _NumberOfLayers("Number of Layers", Integer) = 100
         _HeightScale("Height scale", Range(0,1)) = 0.1
+        [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
+        [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
 
         [Header(Blinn Phong)][Space(10)]
         _SpecularExponent("Specular Exponent", Float) = 80
@@ -36,6 +38,8 @@ Shader "Lighting/Blinn-Phong"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
+            #pragma shader_feature USESTEEP
+            #pragma shader_feature USESHADOWS
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
@@ -98,9 +102,21 @@ Shader "Lighting/Blinn-Phong"
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
 
                 half3 l_TS = normalize(mul(i.TBN, l));
-                float2 texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
-                                                        _HeightScale);
-                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float2 texCoords;
+                float parallaxShadows;
+
+                #ifdef USESTEEP
+                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #else
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #endif
+
+                #ifdef USESHADOWS
+                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                #else
+                parallaxShadows = 1;
+                #endif
+
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
@@ -144,7 +160,8 @@ Shader "Lighting/Blinn-Phong"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdadd_fullshadows // Enable full shadows support for additional lights
-
+            #pragma shader_feature USESTEEP
+            #pragma shader_feature USESHADOWS
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
@@ -225,9 +242,20 @@ Shader "Lighting/Blinn-Phong"
 
 
                 half3 l_TS = normalize(mul(i.TBN, l));
-                float2 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers,
-                                                        _HeightScale);
-                float parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                float2 texCoords;
+                float parallaxShadows;
+
+                #ifdef USESTEEP
+                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #else
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                #endif
+
+                #ifdef USESHADOWS
+                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                #else
+                parallaxShadows = 1;
+                #endif
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
