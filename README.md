@@ -27,7 +27,9 @@ This page is designed to help solidify one's understanding of parallax mapping a
 
 ### How It Works  
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales scelerisque risus. Proin ullamcorper cursus arcu, imperdiet semper libero. Sed volutpat ante quis enim elementum, id vulputate quam gravida. Aliquam ullamcorper posuere sapien in dapibus. Proin laoreet odio a nulla fringilla gravida. Quisque vel felis sit amet dui ultricies blandit a eget lectus. Mauris sapien eros, consequat non felis ut, mattis vestibulum mi. Maecenas urna lectus, cursus eget laoreet vel, accumsan molestie mauris. Quisque sed nisl convallis, commodo lectus sit amet, pretium odio. Aenean vitae sapien et enim hendrerit ultricies quis nec ligula. Praesent eu risus nec diam volutpat suscipit.
+Imagine looking down at the centre of a piece of paper at about 45 degrees, at the centre of this paper is a cross, you can see that cross. Now stay still and imagine this, i place an eraser between you and that cross, such that you are no longer able to see that cross, but the tittle of letter 'i' on the sleeve of the eraser that has the brand "I love erasers" printed on it.  It is here, where we must ask ourselves the question: What has happened?
+
+it would go on about like: if we drew a line from ur eyes to the tittle of the letter i on the eraser, and through the eraser and towards the cross. we can work out how far away the cross is from the tittle that you see with simple vector math. and it is by that amount we need to shift our texture coordinates. 
 
 <details>
   <summary>Expand to view the images</summary>
