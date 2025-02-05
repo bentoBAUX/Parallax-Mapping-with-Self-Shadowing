@@ -138,7 +138,7 @@ Shader "Lighting/Cook-Torrance"
                 #ifdef USESTEEP
                 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -146,6 +146,9 @@ Shader "Lighting/Cook-Torrance"
                 #else
                 parallaxShadows = 1;
                 #endif
+
+                if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+                    discard;
 
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
@@ -178,11 +181,11 @@ Shader "Lighting/Cook-Torrance"
                 // Oren-Nayar: https://en.wikipedia.org/wiki/Oren–Nayar_reflectance_model
                 float C1 = 1 - 0.5 * (sigmaSqr / (sigmaSqr + 0.33));
                 float C2 = cosPhi >= 0
-                               ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) *
-                               sin(alpha)
-                               : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (
-                                   sin(alpha) - pow(
-                                       (2.0 * beta) / UNITY_PI, 3.0));
+               ? 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) *
+               sin(alpha)
+               : 0.45 * (sigmaSqr / (sigmaSqr + 0.09)) * (
+                   sin(alpha) - pow(
+                       (2.0 * beta) / UNITY_PI, 3.0));
                 float C3 = 0.125 * (sigmaSqr / (sigmaSqr + 0.09)) *
                     pow((4.0 * alpha * beta) / (UNITY_PI * UNITY_PI), 2);
 
@@ -238,7 +241,7 @@ Shader "Lighting/Cook-Torrance"
             #pragma multi_compile_fwdadd_fullshadows // Enable full shadows and attenuation support for additional lights
             #pragma shader_feature USESTEEP
             #pragma shader_feature USESHADOWS
-            
+
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
             #include "AutoLight.cginc"  // Includes light attenuation calculations
@@ -326,7 +329,6 @@ Shader "Lighting/Cook-Torrance"
                     // Point light: calculate attenuation based on distance
                     l = normalize(_WorldSpaceLightPos0.xyz - i.worldPos);
                     atten = LIGHT_ATTENUATION(i);
-
                 }
 
                 // Convert into tangent space
@@ -338,7 +340,7 @@ Shader "Lighting/Cook-Torrance"
                 #ifdef USESTEEP
                 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -346,6 +348,9 @@ Shader "Lighting/Cook-Torrance"
                 #else
                 parallaxShadows = 1;
                 #endif
+
+                if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+                    discard;
 
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));
@@ -404,7 +409,7 @@ Shader "Lighting/Cook-Torrance"
                 float specular = ((D * G * F) / (4 * dot(n, l)) * dot(n, v));
 
                 float3 result = saturate(lerp(L, specular, _Metallic)) * parallaxShadows * atten;
-                return float4(result , 1.0);
+                return float4(result, 1.0);
             }
             ENDHLSL
         }

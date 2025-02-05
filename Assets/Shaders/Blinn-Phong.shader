@@ -108,7 +108,7 @@ Shader "Lighting/Blinn-Phong"
                 #ifdef USESTEEP
                 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -117,6 +117,8 @@ Shader "Lighting/Blinn-Phong"
                 parallaxShadows = 1;
                 #endif
 
+                if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+                    discard;
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
@@ -248,7 +250,7 @@ Shader "Lighting/Blinn-Phong"
                 #ifdef USESTEEP
                 texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -257,6 +259,9 @@ Shader "Lighting/Blinn-Phong"
                 parallaxShadows = 1;
                 #endif
 
+                if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
+                    discard;
+                
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));

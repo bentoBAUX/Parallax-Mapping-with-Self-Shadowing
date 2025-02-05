@@ -1,17 +1,15 @@
 ﻿#ifndef PARALLAX_MAPPING_INCLUDED
 #define PARALLAX_MAPPING_INCLUDED
 
-float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, int numLayers, float heightScale);
+float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float heightScale);
 float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers,
                             float heightScale, out float shadow);
 float SoftShadow(sampler2D heightMap, float2 texCoords, float3 lightDir, float numLayers, float heightScale);
 
 float ParallaxShadow(sampler2D heightMap, float2 texCoords, float3 lightDir, float numLayers, float heightScale);
 
-float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, int numLayers, float heightScale)
+float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float heightScale)
 {
-    if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
-        discard;
     float height = tex2D(heightMap, texCoords).r;
     float2 p = viewDir.xy / viewDir.z * height * heightScale;
     return texCoords - p;
@@ -19,9 +17,6 @@ float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, in
 
 float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, int numLayers, float heightScale)
 {
-    if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
-        discard;
-
     float optimisedLayers = lerp(32, numLayers, max(dot(float3(0, 0, 1), viewDir), 0));
     float layerDepth = 1.0 / optimisedLayers;
 
