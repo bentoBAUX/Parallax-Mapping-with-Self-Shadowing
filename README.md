@@ -5,7 +5,7 @@ This project demonstrates Physically Based Parallax Occlusion Mapping (POM) with
 This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
 
 <p align="center">
-  <a href="https://youtu.be/GjTtb7B6h1A">
+  <a href="https://youtu.be/XEOFwgZYHSo">
     <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
   </a>
   <br>
