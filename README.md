@@ -27,9 +27,7 @@ This page is designed to help solidify one's understanding of parallax mapping a
 
 ### How It Works  
 
-Imagine looking down at the centre of a piece of paper at about 45 degrees, at the centre of this paper is a cross, you can see that cross. Now stay still and imagine this, i place an eraser between you and that cross, such that you are no longer able to see that cross, but the tittle of letter 'i' on the sleeve of the eraser that has the brand "I love erasers" printed on it.  It is here, where we must ask ourselves the question: What has happened?
-
-it would go on about like: if we drew a line from ur eyes to the tittle of the letter i on the eraser, and through the eraser and towards the cross. we can work out how far away the cross is from the tittle that you see with simple vector math. and it is by that amount we need to shift our texture coordinates. 
+Have you ever seen those mind-bending optical illusion street art that turns a flat sidewalk into a deep dark abyss? From the right angle, it feels like you are standing on the edge of a cliff, staring into the gaping unknown. You might even ask a friend to hold the camera while you carefully step on the painted "debris" to strike a frightened pose for your Instagram. This is the concept behind parallax mapping - shifting textures to trick your eyes into seeing real depth.
 
 <details>
   <summary>Expand to view the images</summary>
