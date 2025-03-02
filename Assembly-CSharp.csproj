@@ -45,26 +45,76 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.13f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\ReactiveLine.cs" />
+     <Compile Include="Assets\Script\ParallaxViz.cs" />
      <Compile Include="Assets\Script\Point Light.cs" />
      <Folder Include="Assets" />
+     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.xml" />
      <None Include="Assets\Shaders\Blinn-Phong.shader" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\buildTransitive\netcoreapp3.1" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\buildTransitive\net461" />
      <Folder Include="Assets\Images\Comparison\Self Shadow" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\buildTransitive\netcoreapp2.0" />
+     <None Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\useSharedDesignerContext.txt" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\lib\netstandard2.1" />
+     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\version.txt" />
+     <Folder Include="Assets\Packages" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\buildTransitive\net462" />
+     <Folder Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\lib" />
+     <None Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\lib\netstandard2.0\Microsoft.Bcl.TimeProvider.xml" />
      <None Include="Assets\Shaders\Parallax-Mapping.hlsl" />
      <Folder Include="Assets\Textures\grey_roof_01_4k.blend" />
+     <Folder Include="Assets\Packages\R3.1.3.0\lib\netstandard2.1" />
+     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.xml" />
      <Folder Include="Assets\Images\Comparison" />
+     <Folder Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0" />
+     <None Include="Assets\Shaders\ReactiveLineShader.shader" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\NuGet\Resources" />
      <Folder Include="Assets\Shaders" />
      <Folder Include="Assets\Materials\Cook Torrance" />
      <None Include="Assets\Shaders\Cook-Torrance.shader" />
+     <None Include="Assets\Packages\System.Threading.Channels.8.0.0\lib\netstandard2.1\System.Threading.Channels.xml" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\lib" />
+     <Folder Include="Assets\Materials\Unlit" />
      <Folder Include="Assets\Materials\Unity Default" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib" />
      <Folder Include="Assets\Images" />
+     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1\System.ComponentModel.Annotations.xml" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0" />
+     <None Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\useSharedDesignerContext.txt" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\buildTransitive\net6.0" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\lib" />
      <Folder Include="Assets\Textures\worn_brick_floor_4k.blend" />
      <Folder Include="Assets\Images\Comparison\Simple" />
      <Folder Include="Assets\Materials" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\buildTransitive\netcoreapp2.0" />
+     <None Include="Assets\Packages\R3.1.3.0\lib\netstandard2.1\R3.xml" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\buildTransitive\net462" />
+     <Folder Include="Assets\NuGet" />
+     <None Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\useSharedDesignerContext.txt" />
+     <Folder Include="Assets\Packages\R3.1.3.0\lib" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\lib\netstandard2.0" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0" />
+     <None Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\useSharedDesignerContext.txt" />
      <Folder Include="Assets\Textures\lichen_rock_4k.blend" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\buildTransitive" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\buildTransitive\netcoreapp2.0" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\buildTransitive" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\netstandard2.1" />
      <Folder Include="Assets\Images\Comparison\Final" />
+     <Folder Include="Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\buildTransitive" />
+     <None Include="Assets\Packages\System.Threading.Channels.8.0.0\useSharedDesignerContext.txt" />
      <Folder Include="Assets\Textures\metal_plate_02_4k.blend" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\buildTransitive\net461" />
+     <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\buildTransitive\net6.0" />
+     <Folder Include="Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0" />
+     <Folder Include="Assets\Packages\R3.1.3.0" />
      <Folder Include="Assets\Scenes\Parallax Mapping_Profiles" />
+     <Folder Include="Assets\Packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1" />
      <Folder Include="Assets\Textures" />
      <Folder Include="Assets\Images\Comparison\POM" />
      <Folder Include="Assets\Script" />
@@ -323,6 +373,24 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.Antlr3.Runtime">
      <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
+     </Reference>
+     <Reference Include="Microsoft.Bcl.TimeProvider">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\Microsoft.Bcl.TimeProvider.8.0.0\lib\netstandard2.0\Microsoft.Bcl.TimeProvider.dll</HintPath>
+     </Reference>
+     <Reference Include="System.Threading.Channels">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\System.Threading.Channels.8.0.0\lib\netstandard2.1\System.Threading.Channels.dll</HintPath>
+     </Reference>
+     <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\netstandard2.1\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+     </Reference>
+     <Reference Include="System.ComponentModel.Annotations">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\System.ComponentModel.Annotations.5.0.0\lib\netstandard2.1\System.ComponentModel.Annotations.dll</HintPath>
+     </Reference>
+     <Reference Include="System.Runtime.CompilerServices.Unsafe">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+     </Reference>
+     <Reference Include="R3">
+     <HintPath>G:\Recovered\Projects\Code\Unity\HLSL\Parallax Mapping\Assets\Packages\R3.1.3.0\lib\netstandard2.1\R3.dll</HintPath>
      </Reference>
      <Reference Include="netstandard">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.13f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
