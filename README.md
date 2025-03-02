@@ -5,7 +5,7 @@ This project demonstrates Physically Based Parallax Occlusion Mapping (POM) with
 This page is designed to help solidify one's understanding of parallax mapping and explore the advancements that enhance realism while maintaining a relatively low computational cost.
 
 <p align="center">
-  <a href="https://youtu.be/GjTtb7B6h1A">
+  <a href="https://youtu.be/XEOFwgZYHSo">
     <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
   </a>
   <br>
@@ -27,9 +27,11 @@ This page is designed to help solidify one's understanding of parallax mapping a
 
 ### How It Works  
 
-Imagine looking down at the centre of a piece of paper at about 45 degrees, at the centre of this paper is a cross, you can see that cross. Now stay still and imagine this, i place an eraser between you and that cross, such that you are no longer able to see that cross, but the tittle of letter 'i' on the sleeve of the eraser that has the brand "I love erasers" printed on it.  It is here, where we must ask ourselves the question: What has happened?
+Have you ever seen those mind-bending [optical illusion street art](https://d36tnp772eyphs.cloudfront.net/blogs/1/2019/06/Edgar-Mueller-street-mural-optical-illusion-of-ice-cliff.jpg) that turns a flat sidewalk into a deep dark abyss? From the right angle, it feels like you are standing on the edge of a cliff, staring into the gaping unknown. You might even ask a friend to hold the camera while you carefully step on the painted "debris" to strike a frightened pose for your Instagram. This is the concept behind parallax mapping - shifting textures to trick your eyes into seeing real depth.
 
-it would go on about like: if we drew a line from ur eyes to the tittle of the letter i on the eraser, and through the eraser and towards the cross. we can work out how far away the cross is from the tittle that you see with simple vector math. and it is by that amount we need to shift our texture coordinates. 
+As mentioned, parallax mapping's core concept is distorting parts of the 2D texture applied to a surface based on how we are looking at it. This means we need to consider _how_ we are looking at the surface - are we staring straight down at it, or viewing it from an angle? This would be our **view angle**. We also need to know how much we would like a part of the texture to shift. In our case, we’ll be using a **depth map**, which is simply an inverse of the heightmap.
+
+
 
 <details>
   <summary>Expand to view the images</summary>
@@ -125,6 +127,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sodales scelerisque
 
 - Joey de Vries for his insightful tutorial on [LearnOpenGL](https://learnopengl.com/Advanced-Lighting/Parallax-Mapping), which provided a strong foundation for this project’s development.
 - Rabbid76 on [StackOverflow](https://stackoverflow.com/questions/55089830/adding-shadows-to-parallax-occlusion-map) for the tutorial on self shadowing for parallax mapping.
+- [Advanced VR Graphics Techniques](https://developer.arm.com/documentation/102073/0100/Bump-mapping)
 
 ## License  
 
