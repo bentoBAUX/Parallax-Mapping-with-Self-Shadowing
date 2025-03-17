@@ -8,6 +8,7 @@ public class ParallaxViz : MonoBehaviour
     public ReactiveLine reactiveLine;
     public HA_Text ha_text;
     public GameObject sphereGO;
+    public GameObject arrowGO;
 
     public Material surfaceHitMaterial;
     public Material endHitMaterial;
@@ -18,6 +19,7 @@ public class ParallaxViz : MonoBehaviour
     private GameObject heightMapSphere;
     private GameObject endSphere;
     private GameObject pSphere;
+    private GameObject pArrow;
 
     private LineRenderer pvectorLineRenderer;
 
@@ -44,7 +46,7 @@ public class ParallaxViz : MonoBehaviour
         reactiveLine.ViewDir.Subscribe(viewDir => VisualizeP(viewDir)).AddTo(disposables);
 
         pvectorLineRenderer = GetComponent<LineRenderer>();
-        pvectorLineRenderer.startWidth = pvectorLineRenderer.endWidth = 0.1f;
+        pvectorLineRenderer.startWidth = pvectorLineRenderer.endWidth = 0.05f;
         pvectorLineRenderer.positionCount = 2;
     }
 
@@ -57,23 +59,47 @@ public class ParallaxViz : MonoBehaviour
         Vector2 view2D = new Vector2(viewDir.x, viewDir.y);
         Vector2 p = view2D / Mathf.Max(0.01f, viewDir.z) * (heightmap_value * heightScale);
 
-        // Define start and end points
-        Vector3 endPos = surfaceHitPoint - new Vector3(0, p.x, p.y);
+        // Define start and end points with offset in the negative x-axis to prevent the line from occlusion.
+        Vector3 startPos = new Vector3(-0.1f, surfaceHitPoint.y, surfaceHitPoint.z);
+        Vector3 endPos = startPos - new Vector3(0, p.x, p.y);
 
         if (!surfaceHitPoint.IsFinite() || !endPos.IsFinite())
         {
             // Handles invalid start and end positions
             pvectorLineRenderer.enabled = false;
-            Destroy(pSphere);
+            SafeDestroy(ref pSphere);
+            SafeDestroy(ref pArrow);
         }
         else
         {
             // Draw the parallax vector
             pvectorLineRenderer.enabled = true;
-            pvectorLineRenderer.SetPosition(0, surfaceHitPoint);
+            pvectorLineRenderer.SetPosition(0, startPos);
             pvectorLineRenderer.SetPosition(1, endPos);
             UpdateSphere(ref pSphere, pMaterial, endPos);
+            UpdateArrow(ref pArrow, pMaterial, (startPos + endPos) * 0.5f);
         }
+    }
+
+    // Draw arrows on the lines
+    private void UpdateArrow(ref GameObject arrow, Material material, Vector3 position)
+    {
+        if (!position.IsFinite())
+        {
+            SafeDestroy(ref arrow);
+            return;
+        }
+
+        if (arrow == null)
+        {
+            arrow = Instantiate(arrowGO, position, Quaternion.identity);
+        }
+        else
+        {
+            arrow.transform.position = position;
+        }
+
+        arrow.GetComponent<Renderer>().material = material;
     }
 
     // Draw spheres at hitpoints
@@ -81,7 +107,7 @@ public class ParallaxViz : MonoBehaviour
     {
         if (!position.IsFinite())
         {
-            DestroySphere(ref sphere);
+            SafeDestroy(ref sphere);
             return;
         }
 
@@ -97,12 +123,12 @@ public class ParallaxViz : MonoBehaviour
         sphere.GetComponent<Renderer>().material = material;
     }
 
-    private void DestroySphere(ref GameObject sphere)
+    private void SafeDestroy(ref GameObject gameObject)
     {
-        if (sphere != null)
+        if (gameObject != null)
         {
-            Destroy(sphere);
-            sphere = null;
+            Destroy(gameObject);
+            gameObject = null;
         }
     }
 
