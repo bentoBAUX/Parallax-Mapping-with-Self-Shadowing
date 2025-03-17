@@ -58,7 +58,7 @@ public class ReactiveLine : MonoBehaviour
         {
             if (hit.collider.CompareTag(surfaceTag))
             {
-                surfaceHitPoint = hit.point;
+                surfaceHitPoint = end = hit.point;
 
                 // Find height map value of surface hit point and draw a line
                 RaycastHit hit2;
@@ -70,12 +70,6 @@ public class ReactiveLine : MonoBehaviour
                         foundHeightMap = true;
                     }
                 }
-            }
-
-            if (hit.collider.CompareTag(heightMapTag))
-            {
-                end = hit.point; // Stop the line at this point
-                break; // Stop checking other hits after reaching the first heightmap-tagged object.
             }
         }
 
