@@ -19,26 +19,31 @@ public class ReactiveLine : MonoBehaviour
     private readonly BehaviorSubject<Vector3> surfaceHitPointSubject = new(Vector3.positiveInfinity);
     private readonly BehaviorSubject<Vector3> heightMapHitPointSubject = new(Vector3.zero);
     private readonly BehaviorSubject<Vector3> endHitPointSubject = new(Vector3.zero);
+    private readonly BehaviorSubject<Vector3> viewDirSubject = new(Vector3.zero);
 
     // Expose the BehaviourSubjects
     public Observable<Vector3> SurfaceHitPoint => surfaceHitPointSubject;
     public Observable<Vector3> HeightMapHitPoint => heightMapHitPointSubject;
     public Observable<Vector3> EndHitPoint => endHitPointSubject;
+    public Observable<Vector3> ViewDir => viewDirSubject;
 
     void Start()
     {
-        this.transform.rotation = Quaternion.identity;
+        this.transform.rotation = Quaternion.Euler(60, 0, 0);
         mainLineRenderer = GetComponent<LineRenderer>();
 
         heightMapLineRenderer.positionCount = mainLineRenderer.positionCount = 2;
-        heightMapLineRenderer.startWidth = mainLineRenderer.startWidth = 0.05f;
-        heightMapLineRenderer.endWidth = mainLineRenderer.endWidth = 0.05f;
+        mainLineRenderer.startWidth = 0.05f;
+        mainLineRenderer.endWidth = 0.05f;
+
+        heightMapLineRenderer.startWidth = heightMapLineRenderer.endWidth = 0.02f;
 
         lineMaterial = mainLineRenderer.material;
     }
 
     void Update()
     {
+        foundHeightMap = false;
         Vector3 start = transform.position;
         Vector3 direction = transform.forward;
         Vector3 end = start + direction * maxDistance;
@@ -48,6 +53,7 @@ public class ReactiveLine : MonoBehaviour
         RaycastHit[] hits = Physics.RaycastAll(start, direction, maxDistance, collisionLayer);
         Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance)); // Hits are not guaranteed to be stored by ascending distances.
 
+        // Check hits for surface, heightmap and endpoint
         foreach (RaycastHit hit in hits)
         {
             if (hit.collider.CompareTag(surfaceTag))
@@ -106,6 +112,10 @@ public class ReactiveLine : MonoBehaviour
 
         float surfaceHitUV = surfaceHitPoint == Vector3.positiveInfinity ? 1.0f : Mathf.Clamp01(Vector3.Distance(start, surfaceHitPoint) / Vector3.Distance(start, end));
         lineMaterial.SetFloat("_SurfaceHitUV", surfaceHitUV);
+
+        // Broadcast line vector
+        Vector3 viewDirVector = transform.up;
+        viewDirSubject.OnNext(viewDirVector);
     }
 
     public string GetHeightMapTag()

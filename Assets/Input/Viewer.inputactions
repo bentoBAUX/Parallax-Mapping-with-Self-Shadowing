@@ -1,0 +1,34 @@
+{
+    "name": "Viewer",
+    "maps": [
+        {
+            "name": "Look",
+            "id": "60cd4c18-d7ce-4e3d-a16b-e8da65be1881",
+            "actions": [
+                {
+                    "name": "Mouse",
+                    "type": "Value",
+                    "id": "0a176bd3-1e59-4856-9771-cee2e429bbcf",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7cf4e835-49e8-4762-a975-6bd907b98466",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

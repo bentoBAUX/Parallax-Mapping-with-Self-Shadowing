@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.collab-proxy": "2.6.0",
     "com.unity.feature.development": "1.0.1",
+    "com.unity.inputsystem": "1.7.0",
     "com.unity.postprocessing": "3.2.2",
     "com.unity.recorder": "4.0.3",
     "com.unity.textmeshpro": "3.0.6",

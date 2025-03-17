@@ -4,22 +4,25 @@ using System;
 
 public class ParallaxViz : MonoBehaviour
 {
+    public float heightScale = 1;
     public ReactiveLine reactiveLine;
+    public HA_Text ha_text;
     public GameObject sphereGO;
 
     public Material surfaceHitMaterial;
     public Material endHitMaterial;
+    public Material pMaterial;
 
     private CompositeDisposable disposables = new CompositeDisposable();
     private GameObject hitSphere;
     private GameObject heightMapSphere;
     private GameObject endSphere;
-    private string heightMapTag; // Cached height map tag
+    private GameObject pSphere;
 
-    private Vector3 targetHeightMapPosition; // Smooth target position
-    private Vector3 heightMapVelocity = Vector3.zero; // Needed for SmoothDamp
+    private LineRenderer pvectorLineRenderer;
 
-    private LineRenderer lineRenderer;
+    private float heightmap_value = 0f;
+    private Vector3 surfaceHitPoint = Vector3.zero;
 
     private void Start()
     {
@@ -29,16 +32,54 @@ public class ParallaxViz : MonoBehaviour
             return;
         }
 
-        heightMapTag = reactiveLine.GetHeightMapTag(); // Cache the tag
+        reactiveLine.SurfaceHitPoint.Subscribe(hitPoint =>
+        {
+            UpdateSphere(ref hitSphere, surfaceHitMaterial, hitPoint);
+            surfaceHitPoint = hitPoint;
+        }).AddTo(disposables);
 
-        reactiveLine.SurfaceHitPoint.Subscribe(hitPoint => { UpdateSphere(ref hitSphere, surfaceHitMaterial, hitPoint); }).AddTo(disposables);
         reactiveLine.HeightMapHitPoint.Subscribe(hitPoint => { UpdateSphere(ref heightMapSphere, surfaceHitMaterial, hitPoint); }).AddTo(disposables);
         reactiveLine.EndHitPoint.Subscribe(endHitPoint => { UpdateSphere(ref endSphere, endHitMaterial, endHitPoint); }).AddTo(disposables);
+        ha_text.HeightText.Subscribe(height => heightmap_value = height);
+        reactiveLine.ViewDir.Subscribe(viewDir => VisualizeP(viewDir)).AddTo(disposables);
+
+        pvectorLineRenderer = GetComponent<LineRenderer>();
+        pvectorLineRenderer.startWidth = pvectorLineRenderer.endWidth = 0.1f;
+        pvectorLineRenderer.positionCount = 2;
     }
 
+    private void VisualizeP(Vector3 viewDir)
+    {
+        // Handle invalid values (Infinity, NaN)
+        if (!viewDir.IsFinite()) return;
+
+        // Calculate p
+        Vector2 view2D = new Vector2(viewDir.x, viewDir.y);
+        Vector2 p = view2D / Mathf.Max(0.01f, viewDir.z) * (heightmap_value * heightScale);
+
+        // Define start and end points
+        Vector3 endPos = surfaceHitPoint - new Vector3(0, p.x, p.y);
+
+        if (!surfaceHitPoint.IsFinite() || !endPos.IsFinite())
+        {
+            // Handles invalid start and end positions
+            pvectorLineRenderer.enabled = false;
+            Destroy(pSphere);
+        }
+        else
+        {
+            // Draw the parallax vector
+            pvectorLineRenderer.enabled = true;
+            pvectorLineRenderer.SetPosition(0, surfaceHitPoint);
+            pvectorLineRenderer.SetPosition(1, endPos);
+            UpdateSphere(ref pSphere, pMaterial, endPos);
+        }
+    }
+
+    // Draw spheres at hitpoints
     private void UpdateSphere(ref GameObject sphere, Material material, Vector3 position)
     {
-        if (position == Vector3.positiveInfinity || float.IsInfinity(position.x) || float.IsNaN(position.x))
+        if (!position.IsFinite())
         {
             DestroySphere(ref sphere);
             return;
