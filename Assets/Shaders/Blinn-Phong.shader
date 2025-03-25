@@ -16,6 +16,7 @@ Shader "Lighting/Blinn-Phong"
         _HeightScale("Height scale", Range(0,1)) = 0.1
         [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
         [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
+        [Toggle(TRIMEDGES)] _TrimEdges("Trim Edges", Float) = 0
 
         [Header(Blinn Phong)][Space(10)]
         _SpecularExponent("Specular Exponent", Float) = 80
@@ -40,7 +41,7 @@ Shader "Lighting/Blinn-Phong"
             #pragma multi_compile_fwdbase
             #pragma shader_feature USESTEEP
             #pragma shader_feature USESHADOWS
-
+            #pragma shader_feature TRIMEDGES
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
 
@@ -83,13 +84,11 @@ Shader "Lighting/Blinn-Phong"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-                o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
                 half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                half3 worldTangent = mul((float3x3)unity_ObjectToWorld, v.tangent);
-
-                half3 bitangent = cross(worldNormal, worldTangent);
-                half3 worldBitangent = mul((float3x3)unity_ObjectToWorld, bitangent);
+                half3 worldTangent = normalize(mul((float3x3)unity_ObjectToWorld, v.tangent));
+                float3 worldBitangent = normalize(cross(worldNormal, worldTangent) * v.tangent.w);
 
                 o.TBN = float3x3(worldTangent, worldBitangent, worldNormal);
 
@@ -101,14 +100,16 @@ Shader "Lighting/Blinn-Phong"
                 half3 v = normalize(_WorldSpaceCameraPos - i.worldPos);
                 half3 l = normalize(_WorldSpaceLightPos0.xyz);
 
+                half3 v_TS = normalize(mul(i.TBN, v));
                 half3 l_TS = normalize(mul(i.TBN, l));
+
                 float2 texCoords;
                 float parallaxShadows;
 
                 #ifdef USESTEEP
-                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = SteepParallaxMapping(_Height, i.uv, v_TS, _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, v_TS, _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -117,8 +118,10 @@ Shader "Lighting/Blinn-Phong"
                 parallaxShadows = 1;
                 #endif
 
+                #ifdef TRIMEDGES
                 if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
                     discard;
+                #endif
 
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
@@ -132,7 +135,6 @@ Shader "Lighting/Blinn-Phong"
                 float Ia = _k.x;
                 float Id = _k.y * saturate(dot(n, l));
                 float Is = _k.z * pow(saturate(dot(h, n)), _SpecularExponent);
-
 
                 float3 ambientSH = ShadeSH9(float4(n, 1));
                 float3 ambient = Ia * c * ambientSH;
@@ -164,6 +166,7 @@ Shader "Lighting/Blinn-Phong"
             #pragma multi_compile_fwdadd_fullshadows // Enable full shadows support for additional lights
             #pragma shader_feature USESTEEP
             #pragma shader_feature USESHADOWS
+            #pragma shader_feature TRIMEDGES
 
             #include "UnityCG.cginc"
             #include "Parallax-Mapping.hlsl"
@@ -209,13 +212,11 @@ Shader "Lighting/Blinn-Phong"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-                o.uv = v.uv * _MainTex_ST.xy + _MainTex_ST.zw;
                 half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                half3 worldTangent = mul((float3x3)unity_ObjectToWorld, v.tangent);
-
-                half3 bitangent = cross(worldNormal, worldTangent);
-                half3 worldBitangent = mul((float3x3)unity_ObjectToWorld, bitangent);
+                half3 worldTangent = normalize(mul((float3x3)unity_ObjectToWorld, v.tangent));
+                float3 worldBitangent = normalize(cross(worldNormal, worldTangent) * v.tangent.w);
 
                 o.TBN = float3x3(worldTangent, worldBitangent, worldNormal);
 
@@ -242,15 +243,16 @@ Shader "Lighting/Blinn-Phong"
                     atten = LIGHT_ATTENUATION(i);
                 }
 
-
+                half3 v_TS = normalize(mul(i.TBN, v));
                 half3 l_TS = normalize(mul(i.TBN, l));
+
                 float2 texCoords;
                 float parallaxShadows;
 
                 #ifdef USESTEEP
-                texCoords = SteepParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _NumberOfLayers, _HeightScale);
+                texCoords = SteepParallaxMapping(_Height, i.uv, v_TS, _NumberOfLayers, _HeightScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, float3(-v.x, -v.z, v.y), _HeightScale);
+                texCoords = ParallaxMapping(_Height, i.uv, v_TS, _HeightScale);
                 #endif
 
                 #ifdef USESHADOWS
@@ -259,9 +261,11 @@ Shader "Lighting/Blinn-Phong"
                 parallaxShadows = 1;
                 #endif
 
+                #ifdef TRIMEDGES
                 if (texCoords.x > 1.0 || texCoords.y > 1.0 || texCoords.x < 0.0 || texCoords.y < 0.0)
                     discard;
-                
+                #endif
+
                 // Blinn Phong
                 half4 c = tex2D(_MainTex, texCoords) * _DiffuseColour;
                 half3 normalMap = UnpackNormal(tex2D(_Normal, texCoords));

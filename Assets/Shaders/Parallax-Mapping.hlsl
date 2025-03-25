@@ -1,43 +1,39 @@
 ﻿#ifndef PARALLAX_MAPPING_INCLUDED
 #define PARALLAX_MAPPING_INCLUDED
 
-float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float heightScale);
-float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers,
-                            float heightScale, out float shadow);
-float SoftShadow(sampler2D heightMap, float2 texCoords, float3 lightDir, float numLayers, float heightScale);
+float2 ParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale);
+float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers,
+                            float depthScale, out float shadow);
+float ParallaxShadow(sampler2D depthMap, float2 texCoords, float3 lightDir, float maxLayers, float depthScale);
 
-float ParallaxShadow(sampler2D heightMap, float2 texCoords, float3 lightDir, float numLayers, float heightScale);
-
-float2 ParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, float heightScale)
+float2 ParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale)
 {
-    float height = tex2D(heightMap, texCoords).r;
-    float2 p = viewDir.xy / viewDir.z * height * heightScale;
+    float depth = tex2D(depthMap, texCoords).r;
+    float2 p = viewDir.xy / viewDir.z * depth * depthScale;
     return texCoords - p;
 }
 
-float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDir, int numLayers, float heightScale)
+float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, int numLayers, float depthScale)
 {
-    float optimisedLayers = lerp(32, numLayers, max(dot(float3(0, 0, 1), viewDir), 0));
-    float layerDepth = 1.0 / optimisedLayers;
+    float layerDepth = 1.0 / numLayers;
 
-    float2 p = viewDir.xy * heightScale;
-    float2 deltaTexCoords = p / optimisedLayers;
+    float2 p = viewDir.xy * depthScale;
+    float2 stepVector = p / numLayers;
 
     float currentLayerDepth = 0.0;
     float2 currentTexCoords = texCoords;
-    float currentDepth = tex2Dlod(heightMap, float4(currentTexCoords, 0, 0.0)).r;
+    float currentDepthMapValue = tex2Dlod(depthMap, float4(currentTexCoords, 0, 0.0)).r;
 
-
-    while (currentLayerDepth < currentDepth)
+    while (currentLayerDepth < currentDepthMapValue)
     {
-        currentTexCoords -= deltaTexCoords;
-        currentDepth = tex2Dlod(heightMap, float4(currentTexCoords, 0, 0.0)).r;
+        currentTexCoords -= stepVector;
+        currentDepthMapValue = tex2Dlod(depthMap, float4(currentTexCoords, 0, 0.0)).r;
         currentLayerDepth += layerDepth;
     }
 
-    float2 prevTexCoords = currentTexCoords + deltaTexCoords;
-    float afterDepth = currentDepth - currentLayerDepth;
-    float beforeDepth = tex2Dlod(heightMap, float4(prevTexCoords, 0, 0)).r - currentLayerDepth + layerDepth;
+    float2 prevTexCoords = currentTexCoords + stepVector;
+    float afterDepth = currentDepthMapValue - currentLayerDepth;
+    float beforeDepth = tex2Dlod(depthMap, float4(prevTexCoords, 0, 0)).r - currentLayerDepth + layerDepth;
 
     float weight = afterDepth / (afterDepth - beforeDepth);
     float2 finalTexCoords = prevTexCoords * weight + currentTexCoords * (1.0 - weight);
@@ -46,32 +42,33 @@ float2 SteepParallaxMapping(sampler2D heightMap, float2 texCoords, float3 viewDi
     return finalTexCoords;
 }
 
-float ParallaxShadow(sampler2D heightMap, float2 texCoords, float3 lightDir, float numLayers, float heightScale)
+float ParallaxShadow(sampler2D depthMap, float2 texCoords, float3 lightDir, float numLayers, float depthScale)
 {
-    float optimisedLayers = lerp(16, numLayers, max(dot(float3(0, 0, 1), lightDir), 0)); // Adjust for performance
-    float layerDepth = 1.0 / optimisedLayers;
+    if (lightDir.z <= 0) return 0.0;
 
-    float2 p = lightDir.xy / (abs(lightDir.z) + 0.01) * heightScale; // Normalize step size
-    float2 deltaTexCoords = p / optimisedLayers;
+    float layerDepth = 1.0 / numLayers;
+
+    float2 p = lightDir.xy / lightDir.z * depthScale; // Normalize step size
+    float2 stepVector = p / numLayers;
 
     float2 currentTexCoords = texCoords;
-    float h0 = tex2D(heightMap, currentTexCoords).r;
-    float currentLayerDepth = h0;
+    float currentDepthMapValue = tex2D(depthMap, currentTexCoords).r;
+    float currentLayerDepth = currentDepthMapValue;
 
     float shadowBias = 0.03; // Bias to reduce self-shadowing
     int maxIterations = 32; // Cap iterations
-    int i = 0;
+    int iterationCount = 0;
 
     // Traverse along the light direction
-    while (currentLayerDepth <= h0 + shadowBias && currentLayerDepth > 0.0 && i < maxIterations)
+    while (currentLayerDepth <= currentDepthMapValue + shadowBias && currentLayerDepth > 0.0 && iterationCount < maxIterations)
     {
-        currentTexCoords += deltaTexCoords;
-        h0 = tex2D(heightMap, currentTexCoords).r;
+        currentTexCoords += stepVector;
+        currentDepthMapValue = tex2D(depthMap, currentTexCoords).r;
         currentLayerDepth -= layerDepth;
-        i++;
+        iterationCount++;
     }
 
-    return currentLayerDepth > h0 ? 0.0 : 1.0; // No occlusion = fully lit
+    return currentLayerDepth > currentDepthMapValue ? 0.0 : 1.0; // No occlusion = fully lit
 }
 
 

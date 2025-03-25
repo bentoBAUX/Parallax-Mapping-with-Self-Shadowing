@@ -17,12 +17,14 @@ public class HA_Text : MonoBehaviour
     private LineRenderer _lineRenderer;
     private float offset = 0.5f;
 
+    private CompositeDisposable disposables = new CompositeDisposable();
 
     private Vector3 offset_vector;
+
     // Start is called before the first frame update
     void Start()
     {
-        reactiveLine.HeightMapHitPoint.Subscribe(height => UpdatePositionAndText(height));
+        reactiveLine.HeightMapHitPoint.Subscribe(height => UpdatePositionAndText(height)).AddTo(disposables);
         heightText = GetComponentInChildren<TMP_Text>();
 
         _lineRenderer = GetComponent<LineRenderer>();
@@ -37,7 +39,7 @@ public class HA_Text : MonoBehaviour
     {
         offset_vector = new Vector3(0, 0, offset);
 
-        if (!float.IsInfinity(HA_pos.y) && !float.IsNaN(HA_pos.y))
+        if (HA_pos.IsFinite())
         {
             gameObject.SetActive(true);
 
@@ -59,4 +61,8 @@ public class HA_Text : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        disposables.Dispose(); // Clean up all subscriptions
+    }
 }

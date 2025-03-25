@@ -45,6 +45,8 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.13f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\LightDir.cs" />
+     <Compile Include="Assets\Script\ViewDir_Text.cs" />
      <Compile Include="Assets\Script\ReactiveLine.cs" />
      <Compile Include="Assets\Script\HA_Text.cs" />
      <Compile Include="Assets\Script\ParallaxViz.cs" />
@@ -120,6 +122,7 @@
      <None Include="Assets\Shaders\DottedLine.shader" />
      <Folder Include="Assets\Packages\Microsoft.Bcl.AsyncInterfaces.6.0.0" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+     <Folder Include="Assets\3D Models" />
      <Folder Include="Assets\Packages\System.Threading.Channels.8.0.0\lib" />
      <Folder Include="Assets\Textures\worn_brick_floor_4k.blend" />
      <Folder Include="Assets\Images\Comparison\Simple" />
