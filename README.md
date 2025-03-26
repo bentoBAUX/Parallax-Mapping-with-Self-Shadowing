@@ -9,7 +9,7 @@
  </p>
 
 Thanks for checking out this project!
-This repository contains the **full implementation of Parallax Occlusion Mapping with Self-Shadowing**, written in HLSL for Unity's Built-in Render Pipeline.
+This repository contains the **full implementation of Parallax Mapping with Self-Shadowing**, written in HLSL for Unity's Built-in Render Pipeline.
 
 If you're looking for an in-depth explanation of how it all works — from tangent space setup to steep parallax and self-shadowing — I’ve written a full walkthrough on my website:
 
