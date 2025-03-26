@@ -1,4 +1,4 @@
-# Parallax Occlusion Mapping with Self-Shadowing
+# Parallax Mapping with Self-Shadowing
 
  <p align="center">
    <a href="https://youtu.be/XEOFwgZYHSo">
