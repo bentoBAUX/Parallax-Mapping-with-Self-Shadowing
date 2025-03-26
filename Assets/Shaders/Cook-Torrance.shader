@@ -15,9 +15,9 @@ Shader "Lighting/Cook-Torrance"
         _NormalStrength("Normal Strength", Range(0,20)) = 1
 
         [Header(Parallax Mapping)][Space(10)]
-        _Depth("Height Map", 2D) = "height"{}
+        _Depth("Depth Map", 2D) = "Depth"{}
         _NumberOfLayers("Number of Layers", Integer) = 100
-        _DepthScale("Height scale", Range(0,1)) = 0.1
+        _DepthScale("Depth scale", Range(0,1)) = 0.1
         [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
         [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
         [Toggle(TRIMEDGES)] _TrimEdges("Trim Edges", Float) = 0

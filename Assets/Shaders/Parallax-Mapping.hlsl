@@ -2,9 +2,8 @@
 #define PARALLAX_MAPPING_INCLUDED
 
 float2 SimpleParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale);
-float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers,
-                            float depthScale, out float shadow);
-float SelfShadowing(sampler2D depthMap, float2 texCoords, float3 lightDir, float maxLayers, float depthScale);
+float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers, float depthScale);
+float SelfShadowing(sampler2D depthMap, float2 texCoords, float3 lightDir, float numLayers, float depthScale);
 
 float2 SimpleParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale)
 {

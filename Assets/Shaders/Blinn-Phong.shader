@@ -11,9 +11,9 @@ Shader "Lighting/Blinn-Phong"
         _NormalStrength("Normal Strength", Range(0,20)) = 1
 
         [Header(Parallax Mapping)][Space(10)]
-        _Depth("Height Map", 2D) = "height"{}
+        _Depth("Depth Map", 2D) = "depth"{}
         _NumberOfLayers("Number of Layers", Integer) = 100
-        _DepthScale("Height scale", Range(0,1)) = 0.1
+        _DepthScale("Depth scale", Range(0,1)) = 0.1
         [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
         [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
         [Toggle(TRIMEDGES)] _TrimEdges("Trim Edges", Float) = 0
@@ -76,7 +76,6 @@ Shader "Lighting/Blinn-Phong"
                 half3 worldPos: TEXCOORD0;
                 half2 uv: TEXCOORD1;
                 half3x3 TBN : TEXCOORD2;
-                half4 color: COLOR0;
             };
 
             v2f vert(appdata v)
