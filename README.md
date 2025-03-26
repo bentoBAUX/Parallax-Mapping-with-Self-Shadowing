@@ -1,5 +1,13 @@
 # Physically Based Parallax Occlusion Mapping with Self-Shadowing
 
+ <p align="center">
+   <a href="https://youtu.be/XEOFwgZYHSo">
+     <img src="https://github.com/bentoBAUX/Physically-Based-Parallax-Occlusion-Mapping-with-Self-Shadowing/blob/master/Assets/Images/GIF.gif" alt="Example showcase GIF" />
+   </a>
+   <br>
+   <em>Click to watch the showcase on YouTube</em>
+ </p>
+
 Thanks for checking out this project!
 This repository contains the **full implementation of Physically Based Parallax Occlusion Mapping with Self-Shadowing**, written in HLSL for Unity's Built-in Render Pipeline.
 
