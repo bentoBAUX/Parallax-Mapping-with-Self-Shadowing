@@ -1,4 +1,4 @@
-# Physically Based Parallax Occlusion Mapping with Self-Shadowing
+# Parallax Occlusion Mapping with Self-Shadowing
 
  <p align="center">
    <a href="https://youtu.be/XEOFwgZYHSo">
@@ -9,11 +9,11 @@
  </p>
 
 Thanks for checking out this project!
-This repository contains the **full implementation of Physically Based Parallax Occlusion Mapping with Self-Shadowing**, written in HLSL for Unity's Built-in Render Pipeline.
+This repository contains the **full implementation of Parallax Occlusion Mapping with Self-Shadowing**, written in HLSL for Unity's Built-in Render Pipeline.
 
 If you're looking for an in-depth explanation of how it all works — from tangent space setup to steep parallax and self-shadowing — I’ve written a full walkthrough on my website:
 
-👉 Read the tutorial here:
+👉 **Read the tutorial here**:
 [Physically Based Parallax Mapping with Self-Shadowing](https://bentobaux.github.io/posts/physically-based-parallax-occlusion-mapping-with-self-shadowing/)
 
 The tutorial is beginner-friendly and focuses on helping you truly understand why parallax mapping works — not just how to plug it in.
