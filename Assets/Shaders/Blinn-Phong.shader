@@ -11,9 +11,9 @@ Shader "Lighting/Blinn-Phong"
         _NormalStrength("Normal Strength", Range(0,20)) = 1
 
         [Header(Parallax Mapping)][Space(10)]
-        _Height("Height Map", 2D) = "height"{}
+        _Depth("Height Map", 2D) = "height"{}
         _NumberOfLayers("Number of Layers", Integer) = 100
-        _HeightScale("Height scale", Range(0,1)) = 0.1
+        _DepthScale("Height scale", Range(0,1)) = 0.1
         [Toggle(USESTEEP)] _UseSteep("Steep Parallax", Float) = 0
         [Toggle(USESHADOWS)] _UseShadows("Enable Shadows", Float) = 0
         [Toggle(TRIMEDGES)] _TrimEdges("Trim Edges", Float) = 0
@@ -53,9 +53,9 @@ Shader "Lighting/Blinn-Phong"
             uniform sampler2D _Normal;
             uniform half _NormalStrength;
 
-            uniform sampler2D _Height;
+            uniform sampler2D _Depth;
             uniform int _NumberOfLayers;
-            uniform float _HeightScale;
+            uniform float _DepthScale;
 
             uniform float3 _k;
             uniform float _SpecularExponent;
@@ -107,13 +107,13 @@ Shader "Lighting/Blinn-Phong"
                 float parallaxShadows;
 
                 #ifdef USESTEEP
-                texCoords = SteepParallaxMapping(_Height, i.uv, v_TS, _NumberOfLayers, _HeightScale);
+                texCoords = SteepParallaxMapping(_Depth, i.uv, v_TS, _NumberOfLayers, _DepthScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, v_TS, _HeightScale);
+                texCoords = SimpleParallaxMapping(_Depth, i.uv, v_TS, _DepthScale);
                 #endif
 
                 #ifdef USESHADOWS
-                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                parallaxShadows = SelfShadowing(_Depth, texCoords, l_TS, _NumberOfLayers, _DepthScale);
                 #else
                 parallaxShadows = 1;
                 #endif
@@ -141,9 +141,9 @@ Shader "Lighting/Blinn-Phong"
                 float3 diffuse = Id * c * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 finalColor = ambient + (diffuse + specular) * parallaxShadows;
+                float3 finalColour = ambient + (diffuse + specular) * parallaxShadows;
 
-                return fixed4(finalColor, 1.0);
+                return fixed4(finalColour, 1.0);
             }
             ENDHLSL
 
@@ -181,9 +181,9 @@ Shader "Lighting/Blinn-Phong"
             uniform sampler2D _Normal;
             uniform half _NormalStrength;
 
-            uniform sampler2D _Height;
+            uniform sampler2D _Depth;
             uniform int _NumberOfLayers;
-            uniform float _HeightScale;
+            uniform float _DepthScale;
 
             uniform float3 _k;
             uniform float _SpecularExponent;
@@ -250,13 +250,13 @@ Shader "Lighting/Blinn-Phong"
                 float parallaxShadows;
 
                 #ifdef USESTEEP
-                texCoords = SteepParallaxMapping(_Height, i.uv, v_TS, _NumberOfLayers, _HeightScale);
+                texCoords = SteepParallaxMapping(_Depth, i.uv, v_TS, _NumberOfLayers, _DepthScale);
                 #else
-                texCoords = ParallaxMapping(_Height, i.uv, v_TS, _HeightScale);
+                texCoords = SimpleParallaxMapping(_Depth, i.uv, v_TS, _DepthScale);
                 #endif
 
                 #ifdef USESHADOWS
-                parallaxShadows = ParallaxShadow(_Height, texCoords, l_TS, _NumberOfLayers, _HeightScale);
+                parallaxShadows = SelfShadowing(_Depth, texCoords, l_TS, _NumberOfLayers, _DepthScale);
                 #else
                 parallaxShadows = 1;
                 #endif
@@ -281,9 +281,9 @@ Shader "Lighting/Blinn-Phong"
                 float3 diffuse = Id * c * _LightColor0.rgb;
                 float3 specular = Is * _LightColor0.rgb;
 
-                float3 finalColor = (diffuse + specular) * parallaxShadows;
+                float3 finalColour = (diffuse + specular) * parallaxShadows;
 
-                return fixed4(finalColor, 1.0);
+                return fixed4(finalColour, 1.0);
             }
             ENDHLSL
 

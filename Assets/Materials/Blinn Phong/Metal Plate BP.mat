@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - TRIMEDGES
   - USESHADOWS
   - USESTEEP
   m_InvalidKeywords: []
@@ -27,6 +28,10 @@ Material:
     m_TexEnvs:
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Depth:
+        m_Texture: {fileID: 2800000, guid: 9ce1576231283234d98049e466b5abdb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -78,6 +83,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _DepthScale: 0.02
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -94,6 +100,7 @@ Material:
     - _SpecularExponent: 80
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TrimEdges: 1
     - _UVSec: 0
     - _UseShadows: 1
     - _UseSteep: 1

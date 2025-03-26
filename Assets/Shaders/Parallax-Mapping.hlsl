@@ -1,12 +1,12 @@
 ﻿#ifndef PARALLAX_MAPPING_INCLUDED
 #define PARALLAX_MAPPING_INCLUDED
 
-float2 ParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale);
+float2 SimpleParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale);
 float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float3 lightDir, int numLayers,
                             float depthScale, out float shadow);
-float ParallaxShadow(sampler2D depthMap, float2 texCoords, float3 lightDir, float maxLayers, float depthScale);
+float SelfShadowing(sampler2D depthMap, float2 texCoords, float3 lightDir, float maxLayers, float depthScale);
 
-float2 ParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale)
+float2 SimpleParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir, float depthScale)
 {
     float depth = tex2D(depthMap, texCoords).r;
     float2 p = viewDir.xy / viewDir.z * depth * depthScale;
@@ -58,7 +58,7 @@ float2 SteepParallaxMapping(sampler2D depthMap, float2 texCoords, float3 viewDir
     return finalTexCoords;
 }
 
-float ParallaxShadow(sampler2D depthMap, float2 texCoords, float3 lightDir, float numLayers, float depthScale)
+float SelfShadowing(sampler2D depthMap, float2 texCoords, float3 lightDir, float numLayers, float depthScale)
 {
     if (lightDir.z <= 0) return 0.0;
 
@@ -86,6 +86,5 @@ float ParallaxShadow(sampler2D depthMap, float2 texCoords, float3 lightDir, floa
 
     return currentLayerDepth > currentDepthMapValue ? 0.0 : 1.0; // No occlusion = fully lit
 }
-
 
 #endif
